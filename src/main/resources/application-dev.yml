@@ -7,3 +7,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
+springdoc:
+  server_url : https://dev.ibebu.net:3002
