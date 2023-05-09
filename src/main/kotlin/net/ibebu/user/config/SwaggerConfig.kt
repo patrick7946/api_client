@@ -18,9 +18,14 @@ class SwaggerConfig {
             .title("타이틀 입력")
             .version(springdocVersion)
             .description("API에 대한 설명 부분")
+
+        val localServer = Server().url("http://localhost:3002").description("for local usages")
+        val devServer = Server().url("https://dev.ibebu.net:3002").description("for testing")
+
         return OpenAPI()
             .components(Components())
             .info(info)
-            .addServersItem(Server().url("/"))
+            .addServersItem(localServer)
+            .addServersItem(devServer)
     }
 }
