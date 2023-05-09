@@ -20,13 +20,17 @@ spring:
     multipart:
       max-file-size: 10MB # 파일 하나 당 최대 사이즈
       max-request-size: 20MB # 요청 당 최대 사이즈
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 logging:
   level:
     reactor.netty.http.client: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 springdoc:
   version : v1.0.0
-  packages-to-scan: net.ibebu.externaladmin.controller
+  packages-to-scan: net.ibebu.user
   swagger-ui:
     path: /api-docs
     tags-sorter: alpha
