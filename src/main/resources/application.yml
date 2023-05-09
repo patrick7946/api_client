@@ -1,0 +1,41 @@
+server:
+  port: 3002
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      directory: logs_user
+      prefix: access_log
+      pattern: "%h %a %u %t \"%r\" %s %b %D"
+  shutdown: graceful
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  profiles:
+    active: local
+  lifecycle:
+    timeout-per-shutdown-phase: 1m
+  servlet:
+    multipart:
+      max-file-size: 10MB # 파일 하나 당 최대 사이즈
+      max-request-size: 20MB # 요청 당 최대 사이즈
+logging:
+  level:
+    reactor.netty.http.client: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+springdoc:
+  version : v1.0.0
+  packages-to-scan: net.ibebu.externaladmin.controller
+  swagger-ui:
+    path: /api-docs
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /api-docs/json
+    groups:
+      enabled: true
+  cache:
+    disabled: true
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
