@@ -12,10 +12,10 @@ class SuccessResponse<T>(
 
     companion object {
         fun <T : BaseResponsePopup> of(response: T): SuccessResponse<T> {
-            response.popData.isBoolean().let {
+            response.popupData.isBoolean().let {
                 return SuccessResponse(
-                    if (!it) response.apply { this.popData = null } else null,
-                    if (it) response.popData else null
+                    if (!it) response.apply { this.popupData = null } else null,
+                    if (it) response.popupData else null
                 ).apply {
                     if (it) {
                         this.responseCode = 4000

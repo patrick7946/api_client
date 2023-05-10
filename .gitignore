@@ -35,5 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
 /logs_user/
-/logs_user/
+/src/main/resources/application-dev.yml
+/src/main/resources/application-local.yml
+/src/main/resources/application-ops.yml

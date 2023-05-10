@@ -9,3 +9,8 @@ spring:
         format_sql: true
 springdoc:
   server_url : https://dev.ibebu.net:3002
+
+#JWT
+jwt:
+  secret: b71f64ef3ec441b6b5ebe37a145dd817441b6b5ebe37a145dd817b71f64ef3ec441b6b5ebe37a145dd817441b6b5ebe37a145dd817
+  token-validity-in-seconds: 86400

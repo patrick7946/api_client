@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @MappedSuperclass
-abstract class BaseTimeEntity {
+abstract class BaseDateHistoryEntity {
     @Column(name = "REG_UUID")
     val regUuid: UUID? = null
 

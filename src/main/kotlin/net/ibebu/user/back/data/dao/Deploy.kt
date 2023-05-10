@@ -3,14 +3,13 @@ package net.ibebu.user.back.data.dao
 import jakarta.persistence.*
 import net.ibebu.user.common.data.enums.DeviceTypeEnums
 import net.ibebu.user.core.base.BaseEntity
-import net.ibebu.user.core.base.BaseRegEntity
+import net.ibebu.user.core.base.BaseRegHistoryEntity
 import net.ibebu.user.core.enums.YesOrNo
-import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 
 @Entity
-@Table(name = "\"CMM_DEPLOY\"")
+@Table(name = "CMM_DEPLOY")
 data class Deploy(
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -28,4 +27,4 @@ data class Deploy(
     var deployVersion: String,
     @Column(name = "DEL_YN", columnDefinition = "bit")
     var delYn: YesOrNo = YesOrNo.N
-) : BaseEntity<Deploy>, BaseRegEntity()
+) : BaseEntity<Deploy>, BaseRegHistoryEntity()
