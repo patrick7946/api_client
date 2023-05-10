@@ -4,8 +4,6 @@ import net.ibebu.user.back.service.DeployService
 import net.ibebu.user.back.service.UserService
 import net.ibebu.user.core.token.TokenProvider
 import net.ibebu.user.mobile.data.SplashDto
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -14,7 +12,6 @@ class SplashService(
     private val deployService: DeployService,
     private val userService: UserService,
     private val passwordEncoder: PasswordEncoder,
-    private val authenticationManagerBuilder: AuthenticationManagerBuilder,
     private val tokenProvider: TokenProvider
 ) {
     fun getSplashVersion(request: SplashDto.SdVersion): SplashDto.SdVersionResponse {
@@ -32,7 +29,6 @@ class SplashService(
                     passwordEncoder,
                     it.password,
                     response,
-                    authenticationManagerBuilder,
                     tokenProvider
                 )
             }

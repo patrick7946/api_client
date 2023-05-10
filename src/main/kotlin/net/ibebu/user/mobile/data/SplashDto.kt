@@ -58,7 +58,6 @@ object SplashDto {
                 passwordEncoder: PasswordEncoder,
                 password: String,
                 response: UserDtd.UdLoginResponse,
-                authenticationManagerBuilder: AuthenticationManagerBuilder,
                 tokenProvider: TokenProvider
             ): SdLoginResponse {
                 if (response.userUuid == null) {
@@ -74,14 +73,13 @@ object SplashDto {
                 }
 
                 return SdLoginResponse(
-                    loginToken = createToken(response,authenticationManagerBuilder,tokenProvider),
+                    loginToken = createToken(response,tokenProvider),
                     paidMemberYn = response.paidMemberYn!!
                 )
             }
 
             private fun createToken(
                 response: UserDtd.UdLoginResponse,
-                authenticationManagerBuilder: AuthenticationManagerBuilder,
                 tokenProvider: TokenProvider
             ): String {
                 return tokenProvider.createToken(response)
