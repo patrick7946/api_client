@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter
 
 
+// 참조 링크: https://github.com/SilverNine/spring-boot-jwt-tutorial-kotlin
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
@@ -49,7 +50,12 @@ class SecurityConfig(
 
             .and()
             .authorizeHttpRequests()// 접근 제한 설정
-            .requestMatchers("/api-docs/**", "/swagger-ui/**", "/v1/splash/**").permitAll() // 여기에 작성되는 부분은 인증없이 처리
+            .requestMatchers(
+                "/api-docs/**",
+                "/swagger-ui/**",
+                "/v1/splash/**",
+                "/v1/login/**"
+            ).permitAll() // 여기에 작성되는 부분은 인증없이 처리
             .anyRequest().authenticated() // 나머지는 전부 인증 처리
 
             .and()

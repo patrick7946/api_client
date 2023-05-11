@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils
 import org.springframework.web.filter.GenericFilterBean
 import java.io.IOException
 
+// 참조 링크: https://github.com/SilverNine/spring-boot-jwt-tutorial-kotlin
 class JwtFilter(private val tokenProvider: TokenProvider) : GenericFilterBean() {
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain) {

@@ -1,10 +1,12 @@
 package net.ibebu.user.back.data.dtd
 
+import net.ibebu.user.back.data.dao.Subscriptions
 import net.ibebu.user.back.data.dao.User
 import net.ibebu.user.common.data.enums.LoginTypeEnum
 import net.ibebu.user.common.data.enums.LoginTypeEnum.Companion.toLoginTypeEnum
 import net.ibebu.user.core.base.BaseDto
 import net.ibebu.user.core.enums.YesOrNo
+import net.ibebu.user.core.enums.YesOrNo.Companion.find
 import net.ibebu.user.core.enums.YesOrNo.Companion.toYesOrNoEnum
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
@@ -24,8 +26,16 @@ object UserDtd {
                     userEmail = entity?.userEmail,
                     userPwd = entity?.userPwd,
                     loginType = entity?.loginType,
-                    paidMemberYn = YesOrNo.N
+                    paidMemberYn = getPaidMemberYnData(entity?.subscriptionList)
                 )
+            }
+
+            private fun getPaidMemberYnData(list : List<Subscriptions>?):YesOrNo{
+                list ?: return YesOrNo.N
+
+                list.sortedByDescending { it.subSeq }.firstOrNull { it.delYn == YesOrNo.N }.let {
+                    return find(it != null)
+                }
             }
         }
     }

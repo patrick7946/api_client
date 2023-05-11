@@ -20,6 +20,7 @@ import java.util.stream.Collectors
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
+// 참조 링크: https://github.com/SilverNine/spring-boot-jwt-tutorial-kotlin
 @Component
 class TokenProvider(
     @param:Value("\${jwt.secret}") private val secret: String,

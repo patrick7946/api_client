@@ -22,4 +22,7 @@ data class User(
     @Column(name = "LOGIN_TYPE")
     @Enumerated(EnumType.STRING)
     val loginType: LoginTypeEnum
-) : BaseEntity<User>, BaseDateEntity()
+) : BaseEntity<User>, BaseDateEntity() {
+    @OneToMany(mappedBy = "user")
+    val subscriptionList: List<Subscriptions> = listOf()
+}

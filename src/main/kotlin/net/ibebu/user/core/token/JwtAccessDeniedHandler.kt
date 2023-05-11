@@ -7,6 +7,7 @@ import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.stereotype.Component
 import java.io.IOException
 
+// 참조 링크: https://github.com/SilverNine/spring-boot-jwt-tutorial-kotlin
 @Component
 class JwtAccessDeniedHandler : AccessDeniedHandler {
     @Throws(IOException::class)

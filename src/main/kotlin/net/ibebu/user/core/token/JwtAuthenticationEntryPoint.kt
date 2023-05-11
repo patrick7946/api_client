@@ -6,6 +6,7 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
 import java.io.IOException
 
+// 참조 링크: https://github.com/SilverNine/spring-boot-jwt-tutorial-kotlin
 @Component
 class JwtAuthenticationEntryPoint : AuthenticationEntryPoint {
     @Throws(IOException::class)
