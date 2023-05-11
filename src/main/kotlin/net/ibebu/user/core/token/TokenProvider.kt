@@ -1,4 +1,5 @@
 package net.ibebu.user.core.token
+
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component
 import java.security.Key
 import java.util.*
 import java.util.stream.Collectors
+import kotlin.collections.HashMap
+import kotlin.collections.LinkedHashMap
 
 @Component
 class TokenProvider(
@@ -43,7 +46,7 @@ class TokenProvider(
         val validity = Date(Date().time + tokenValidityInMilliseconds)
 
         return Jwts.builder()
-            .setHeaderParam("type","jwt")
+            .setHeaderParam("type", "jwt")
             .claim(AUTHORITIES_KEY, response)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
@@ -58,14 +61,19 @@ class TokenProvider(
             .parseClaimsJws(token)
             .body
 
+        val authClaims = claims["auth"]
+        val authMap: HashMap<String, String> = HashMap(authClaims as Map<String, String>)
+
         val authorities: Collection<GrantedAuthority> = Arrays
             .stream(claims[AUTHORITIES_KEY].toString().split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
             .map { role: String? -> SimpleGrantedAuthority(role) }
             .collect(Collectors.toList())
 
-        val principal = User(claims.subject, "", authorities)
-
-        return UsernamePasswordAuthenticationToken(principal, token, authorities)
+        return UsernamePasswordAuthenticationToken(
+            UserDtd.UdUserTokenPrincipal.of(authMap),
+            UserDtd.UdUserTokenCredentials.of(authMap),
+            authorities
+        )
     }
 
     fun validateToken(token: String?): Boolean {

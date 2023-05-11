@@ -9,4 +9,10 @@ enum class LoginTypeEnum(val description: String) : BaseEnum<LoginTypeEnum> {
     APPLE("Apple 이메일로 소셜 로그인");
 
     override val value = this
+
+    companion object{
+        fun String.toLoginTypeEnum():LoginTypeEnum{
+            return LoginTypeEnum.valueOf(this)
+        }
+    }
 }

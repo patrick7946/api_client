@@ -1,10 +1,11 @@
 package net.ibebu.user.back.data.dtd
 
-import io.jsonwebtoken.Claims
 import net.ibebu.user.back.data.dao.User
 import net.ibebu.user.common.data.enums.LoginTypeEnum
+import net.ibebu.user.common.data.enums.LoginTypeEnum.Companion.toLoginTypeEnum
 import net.ibebu.user.core.base.BaseDto
 import net.ibebu.user.core.enums.YesOrNo
+import net.ibebu.user.core.enums.YesOrNo.Companion.toYesOrNoEnum
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
@@ -65,10 +66,10 @@ object UserDtd {
         override val userEmail: String
     ) : UdUserTokenPrincipalIf {
         companion object {
-            fun of(tokenData: Claims): UdUserTokenPrincipal {
+            fun of(tokenData: HashMap<String, String>): UdUserTokenPrincipal {
                 return UdUserTokenPrincipal(
-                    userUuid = tokenData.get("userUuid", UUID::class.java),
-                    userEmail = tokenData.get("userEmail", String::class.java)
+                    userUuid = UUID.fromString(tokenData["userUuid"]),
+                    userEmail = tokenData["userEmail"]!!
                 )
             }
         }
@@ -79,10 +80,10 @@ object UserDtd {
         override val paidMemberYn: YesOrNo
     ) : UdUserTokenCredentialsIf {
         companion object {
-            fun of(tokenData: Claims): UdUserTokenCredentials {
+            fun of(tokenData: HashMap<String, String>): UdUserTokenCredentials {
                 return UdUserTokenCredentials(
-                    loginType = tokenData.get("loginType", LoginTypeEnum::class.java),
-                    paidMemberYn = tokenData.get("paidMemberYn", YesOrNo::class.java)
+                    loginType = tokenData["loginType"]!!.toLoginTypeEnum(),
+                    paidMemberYn = tokenData["paidMemberYn"]!!.toYesOrNoEnum()
                 )
             }
         }

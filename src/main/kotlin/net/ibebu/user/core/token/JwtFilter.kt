@@ -19,7 +19,6 @@ class JwtFilter(private val tokenProvider: TokenProvider) : GenericFilterBean() 
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
             val authentication = tokenProvider.getAuthentication(jwt)
             SecurityContextHolder.getContext().authentication = authentication
-            Companion.logger.debug("Security Context에 '{}' 인증 정보를 저장했습니다, uri: {}", authentication.name, requestURI)
         } else {
             Companion.logger.debug("유효한 JWT 토큰이 없습니다, uri: {}", requestURI)
         }

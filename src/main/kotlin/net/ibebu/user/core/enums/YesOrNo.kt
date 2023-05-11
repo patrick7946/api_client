@@ -23,5 +23,9 @@ enum class YesOrNo {
         fun toYesOrNoEmpty(yesOrNo: YesOrNo?): YesOrNo {
             return yesOrNo ?: N
         }
+
+        fun String.toYesOrNoEnum():YesOrNo{
+            return YesOrNo.valueOf(this)
+        }
     }
 }
