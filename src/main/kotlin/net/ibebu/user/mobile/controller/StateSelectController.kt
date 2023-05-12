@@ -7,6 +7,7 @@ import net.ibebu.user.mobile.data.StateSelectDto
 import net.ibebu.user.mobile.service.StateSelectService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @Tag(name = "주 선택 화면", description = "주 선택 화면에 대한 API 이다.")
@@ -15,6 +16,16 @@ class StateSelectController(private val stateSelectService: StateSelectService) 
     @GetMapping("v1/state-select/state-list")
     fun getV1StateSelectStateList(): ResponseEntity<SuccessResponse<StateSelectDto.SsdStateListResponse>> {
         stateSelectService.getStates().let {
+            return ResponseEntity.ok().body(SuccessResponse(it))
+        }
+    }
+
+    @Operation(summary = "주 설정 API")
+    @PutMapping("v1/state-select/state-list/{stateUuid}")
+    fun putV1StateSelectStateList(
+        @PathVariable stateUuid: UUID
+    ): ResponseEntity<SuccessResponse<StateSelectDto.SsdStateSelectResponse>> {
+        stateSelectService.putStateToUser(StateSelectDto.SsdStateSelectRequest(stateUuid)).let {
             return ResponseEntity.ok().body(SuccessResponse(it))
         }
     }

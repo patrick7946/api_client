@@ -16,4 +16,13 @@ internal class StateSelectControllerTest: BaseControllerTest() {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer ${getToken()}")
         ).andExpect(MockMvcResultMatchers.jsonPath("\$.responseCode").value(SUCCESS_CODE))
     }
+
+    @Test
+    fun `주 설정 API`() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/v1/state-select/state-list/c53bdbaf-f097-11ed-baed-066dafd196cb")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer ${getToken()}")
+        ).andExpect(MockMvcResultMatchers.jsonPath("\$.responseCode").value(SUCCESS_CODE))
+    }
 }

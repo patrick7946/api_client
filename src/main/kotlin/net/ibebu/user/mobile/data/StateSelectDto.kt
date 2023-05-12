@@ -2,7 +2,10 @@ package net.ibebu.user.mobile.data
 
 import io.swagger.v3.oas.annotations.media.Schema
 import net.ibebu.user.back.data.dtd.StateDtd
+import net.ibebu.user.back.data.dtd.UserDtd
 import net.ibebu.user.core.base.BaseResponsePopup
+import net.ibebu.user.core.base.BaseValidation
+import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
 object StateSelectDto {
@@ -17,7 +20,7 @@ object StateSelectDto {
             val stateName: String
         ) {
             companion object {
-                fun of(state: StateDtd.SdStates.SsState): SslrState {
+                fun of(state: StateDtd.SdStatesResponse.SsState): SslrState {
                     return SslrState(
                         stateUuid = state.stateUuid,
                         stateName = state.stateName
@@ -27,9 +30,33 @@ object StateSelectDto {
         }
 
         companion object {
-            fun of(data: StateDtd.SdStates): SsdStateListResponse {
+            fun of(data: StateDtd.SdStatesResponse): SsdStateListResponse {
                 return SsdStateListResponse(
                     stateList = data.states.map { SslrState.of(it) }
+                )
+            }
+        }
+    }
+
+    data class SsdStateSelectRequest(
+        val stateUuid: UUID
+    ) : BaseValidation<SsdStateSelectRequest, SsdStateSelectResponse> {
+        fun toRequestDtd(): UserDtd.UdStateUpdateRequest {
+            return UserDtd.UdStateUpdateRequest(
+                stateUuid = stateUuid,
+                userUuid = (SecurityContextHolder.getContext().authentication.principal as UserDtd.UdUserTokenPrincipal).userUuid
+            )
+        }
+    }
+
+    data class SsdStateSelectResponse(
+        @Schema(title = "메시지", required = true)
+        val message: String
+    ) : BaseResponsePopup() {
+        companion object {
+            fun of(): SsdStateSelectResponse {
+                return SsdStateSelectResponse(
+                    "설정이 완료 되었습니다."
                 )
             }
         }

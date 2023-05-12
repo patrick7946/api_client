@@ -21,4 +21,8 @@ class UserService(
     fun postUserData(userData: UserDtd.UdUserSave) {
         userRepository.save(userData.toEntity(passwordEncoder))
     }
+
+    fun putUserState(stateData: UserDtd.UdStateUpdateRequest) {
+        userRepository.findById(stateData.userUuid).ifPresent { it.stateUuid = stateData.stateUuid }
+    }
 }

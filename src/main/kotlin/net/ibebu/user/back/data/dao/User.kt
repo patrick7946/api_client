@@ -4,11 +4,13 @@ import jakarta.persistence.*
 import net.ibebu.user.common.data.enums.LoginTypeEnum
 import net.ibebu.user.core.base.BaseDateEntity
 import net.ibebu.user.core.base.BaseEntity
+import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 
 @Entity
 @Table(name = "USR_USER")
+@DynamicUpdate
 data class User(
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -21,7 +23,9 @@ data class User(
     val userPwd: String,
     @Column(name = "LOGIN_TYPE")
     @Enumerated(EnumType.STRING)
-    val loginType: LoginTypeEnum
+    val loginType: LoginTypeEnum,
+    @Column(name = "STATE_UUID")
+    var stateUuid: UUID? = null
 ) : BaseEntity<User>, BaseDateEntity() {
     @OneToMany(mappedBy = "user")
     val subscriptionList: List<Subscriptions> = listOf()

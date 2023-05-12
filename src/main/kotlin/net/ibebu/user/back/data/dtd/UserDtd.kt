@@ -98,4 +98,10 @@ object UserDtd {
             }
         }
     }
+
+
+    data class UdStateUpdateRequest(
+        val userUuid: UUID,
+        val stateUuid: UUID
+    )
 }

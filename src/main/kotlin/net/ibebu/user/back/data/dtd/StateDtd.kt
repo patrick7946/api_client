@@ -5,7 +5,7 @@ import net.ibebu.user.core.base.BaseDto
 import java.util.*
 
 object StateDtd {
-    data class SdStates(
+    data class SdStatesResponse(
         val states: List<SsState>
     ) {
         data class SsState(
@@ -22,9 +22,10 @@ object StateDtd {
 
             }
         }
-        companion object Of : BaseDto<List<States>, SdStates> {
-            override fun of(entity: List<States>): SdStates {
-                return SdStates(entity.map { it.toDto(SsState.Of) })
+
+        companion object Of : BaseDto<List<States>, SdStatesResponse> {
+            override fun of(entity: List<States>): SdStatesResponse {
+                return SdStatesResponse(entity.map { it.toDto(SsState.Of) })
             }
         }
     }
