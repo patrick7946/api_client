@@ -27,7 +27,7 @@ class SplashController(private val splashService: SplashService) {
 
     @Operation(summary = "사용자의 로그인 정보 유효성 검증 API")
     @PostMapping("v1/splash/login")
-    fun getV1SplashLogin(
+    fun postV1SplashLogin(
         @RequestBody request: LoginDto.LdLogin
     ): ResponseEntity<SuccessResponse<LoginDto.LdLoginResponse>> {
         splashService.postSplashLogin(request).let { body ->

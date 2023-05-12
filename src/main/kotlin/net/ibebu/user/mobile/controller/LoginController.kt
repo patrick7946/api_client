@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*
 class LoginController(private val loginService: LoginService) {
     @Operation(summary = "사용자의 로그인 정보 유효성 검증 API")
     @PostMapping("v1/login/login")
-    fun getV1SplashLogin(
+    fun postV1LoginLogin(
         @RequestBody request: LoginDto.LdLogin
     ): ResponseEntity<SuccessResponse<LoginDto.LdLoginResponse>> {
         loginService.postLoginLogin(request).let { body ->
@@ -26,5 +26,13 @@ class LoginController(private val loginService: LoginService) {
                 .apply { this.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + body.loginToken) }
                 .let { header -> return ResponseEntity.ok().headers(header).body(SuccessResponse.of(body)) }
         }
+    }
+
+    @Operation(summary = "Oauth2 test 를 위한 API")
+    @GetMapping("v1/login/oauth2/code/google")
+    fun getV1LoginOauth2CodeGoogle(
+        @RequestParam("code") code: String
+    ): ResponseEntity<String> {
+        return ResponseEntity.ok().body("code : $code")
     }
 }
