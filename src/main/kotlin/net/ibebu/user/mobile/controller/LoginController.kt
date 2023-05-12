@@ -29,10 +29,12 @@ class LoginController(private val loginService: LoginService) {
     }
 
     @Operation(summary = "Oauth2 test 를 위한 API")
-    @GetMapping("v1/login/oauth2/code/google")
+    @GetMapping("\${oauth2.google.redirect-path}")
     fun getV1LoginOauth2CodeGoogle(
         @RequestParam("code") code: String
     ): ResponseEntity<String> {
-        return ResponseEntity.ok().body("code : $code")
+        loginService.validationOauth2GoogleLogin(code).let {
+            return ResponseEntity.ok().body(it)
+        }
     }
 }
