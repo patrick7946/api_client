@@ -72,13 +72,12 @@ class LoggingInterceptor(private val objectMapper: ObjectMapper) : AsyncHandlerI
         handler: Any,
         modelAndView: ModelAndView?,
     ) {
-        logger.info(
-            "<<<<< RESPONSE {} [{}] ({}) / Response Body: {}",
-            request.method,
-            request.requestURI + extractQueryString(request),
-            response.status,
-            extractResponseBody(response)
-        )
+        ("<<<<< RESPONSE ${request.method} " +
+                "[${request.requestURI + extractQueryString(request)}] " +
+                "(${response.status}) / " +
+                "Response Body: ${extractResponseBody(response)}").let {
+            logger.info(it)
+        }
     }
 
     private fun extractResponseBody(response: HttpServletResponse): String {
