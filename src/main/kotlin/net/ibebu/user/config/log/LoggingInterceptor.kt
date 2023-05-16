@@ -17,15 +17,13 @@ class LoggingInterceptor(private val objectMapper: ObjectMapper) : AsyncHandlerI
     companion object : Logging
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        logger.info(
-            ">>>>> REQUEST {} [{}] / Parameter Map: {} / Request header: {} / Request Body: {}",
-            request.method,
-            request.requestURI + extractQueryString(request),
-            extractRequestParameters(request),
-            extractRequestHeader(request),
-            extractRequestBody(request)
-        )
-
+        (">>>>> REQUEST ${request.method} " +
+                "[${request.requestURI + extractQueryString(request)}] / " +
+                "Parameter Map: ${extractRequestParameters(request)} / " +
+                "Request header: ${extractRequestHeader(request)} / " +
+                "Request Body: ${extractRequestBody(request)}").let {
+            logger.info(it)
+        }
         return true
     }
 
