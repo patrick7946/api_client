@@ -54,7 +54,8 @@ class SecurityConfig(
                 "/api-docs/**",
                 "/swagger-ui/**",
                 "/v1/splash/**",
-                "/v1/login/**"
+                "/v1/login/**",
+                "/aws/health/check"
             ).permitAll() // 여기에 작성되는 부분은 인증없이 처리
             .anyRequest().authenticated() // 나머지는 전부 인증 처리
 
