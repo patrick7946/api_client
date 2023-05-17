@@ -9,8 +9,14 @@ import org.springframework.web.bind.annotation.*
 @FeignClient(name = "externalClient", url = "\${external.base}")
 interface ExternalClient {
     @GetMapping(path = ["\${external.oauth2.google}"])
-    fun getExternalBaseOauth2Google(
+    fun getExternalOauth2Google(
         @RequestParam("authorizationCode") authorizationCode: String,
         @RequestParam("redirectUrl") redirectUrl: String
     ): ResponseEntity<SuccessResponse<ExternalDto.EdOauth2GoogleResponse>>
+
+
+    @PostMapping(path = ["\${external.identification.validation}"])
+    fun postExternalIdentificationValidation(
+        @RequestBody request: ExternalDto.EdValidationRequest
+    ): ResponseEntity<SuccessResponse<ExternalDto.EdValidationResponse>>
 }

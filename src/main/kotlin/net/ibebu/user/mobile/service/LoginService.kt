@@ -34,7 +34,7 @@ class LoginService(
     }
 
     fun validationOauth2GoogleLogin(code: String): String {
-        externalClient.getExternalBaseOauth2Google(
+        externalClient.getExternalOauth2Google(
             authorizationCode = code,
             redirectUrl = "$baseHost/$redirectPath"
         ).body!!.let {

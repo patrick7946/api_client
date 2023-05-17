@@ -3,9 +3,9 @@ package net.ibebu.user.mobile.data
 import io.swagger.v3.oas.annotations.media.Schema
 import net.ibebu.user.back.data.dtd.StateDtd
 import net.ibebu.user.back.data.dtd.UserDtd
+import net.ibebu.user.common.utils.JwtUtil.getUserUuid
 import net.ibebu.user.core.base.BaseResponsePopup
 import net.ibebu.user.core.base.BaseValidation
-import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
 object StateSelectDto {
@@ -44,7 +44,7 @@ object StateSelectDto {
         fun toRequestDtd(): UserDtd.UdStateUpdateRequest {
             return UserDtd.UdStateUpdateRequest(
                 stateUuid = stateUuid,
-                userUuid = (SecurityContextHolder.getContext().authentication.principal as UserDtd.UdUserTokenPrincipal).userUuid
+                userUuid = getUserUuid()
             )
         }
     }

@@ -21,6 +21,8 @@ data class User(
     val userEmail: String,
     @Column(name = "USER_PWD")
     val userPwd: String,
+    @Column(name = "USER_NAME")
+    val userName: String,
     @Column(name = "LOGIN_TYPE")
     @Enumerated(EnumType.STRING)
     val loginType: LoginTypeEnum,

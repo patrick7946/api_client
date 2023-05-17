@@ -30,7 +30,7 @@ object UserDtd {
                 )
             }
 
-            private fun getPaidMemberYnData(list : List<Subscriptions>?):YesOrNo{
+            private fun getPaidMemberYnData(list: List<Subscriptions>?): YesOrNo {
                 list ?: return YesOrNo.N
 
                 list.sortedByDescending { it.subSeq }.firstOrNull { it.delYn == YesOrNo.N }.let {
@@ -44,12 +44,14 @@ object UserDtd {
         val userEmail: String,
         val userPwd: String,
         val loginType: LoginTypeEnum,
+        val userName: String
     ) {
         fun toEntity(passwordEncoder: PasswordEncoder): User {
             return User(
                 userEmail = this.userEmail,
                 userPwd = passwordEncoder.encode(this.userPwd),
-                loginType = this.loginType
+                loginType = this.loginType,
+                userName = this.userName
             )
         }
     }
@@ -104,4 +106,18 @@ object UserDtd {
         val userUuid: UUID,
         val stateUuid: UUID
     )
+
+    data class UdIdentificationResponse(
+        val userEmail: String,
+        val userName: String
+    ) {
+        companion object Of : BaseDto<User, UdIdentificationResponse> {
+            override fun of(entity: User): UdIdentificationResponse {
+                return UdIdentificationResponse(
+                    userEmail = entity.userEmail,
+                    userName = entity.userName
+                )
+            }
+        }
+    }
 }
