@@ -31,7 +31,8 @@ internal class UserServiceTest(
         UserDtd.UdUserSave(
             userEmail = "qk54r71@nate.com",
             userPwd = "ibebu794613",
-            loginType = LoginTypeEnum.NORMAL
+            loginType = LoginTypeEnum.NORMAL,
+            userName = "Patrick Park"
         ).let {
             userService.getUserByEmail(it.userEmail).let { response ->
                 assert(

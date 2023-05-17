@@ -33,11 +33,11 @@ enum class TimeZoneEnums(
         private fun getCurrentTimeZone(localDateTime: LocalDateTime): TimeZoneEnums {
             return TimeZoneEnums.values().firstOrNull { timeZone ->
                 val currentTime = localDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneOffset.ofHours(timeZone.standardUtcOffset))
-                timeZone.daylightSavingYn == YesOrNo.Y && isWithinDaylightSavingTime(currentTime.year, currentTime.monthValue, currentTime.dayOfMonth)
+                timeZone.daylightSavingYn == YesOrNo.Y && isWithinDaylightSavingTime(currentTime.monthValue)
             } ?: TimeZoneEnums.values().first { it.standardUtcOffset == 0 }
         }
 
-        private fun isWithinDaylightSavingTime(year: Int, month: Int, day: Int): Boolean {
+        private fun isWithinDaylightSavingTime(month: Int): Boolean {
             // 일광 절약 시간대 기간을 확인하는 로직을 구현해야 함
             // 이 예시에서는 간단한 로직으로 4월부터 10월까지 일광 절약 시간대로 간주
             return month in 4..10
